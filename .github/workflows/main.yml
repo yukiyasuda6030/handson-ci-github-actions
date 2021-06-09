@@ -28,6 +28,7 @@ jobs:
         run: |   
           ls -al image/
           cat image/.git/refs/heads/master
+          echo ${{ github.sha }}
       - 
         name: Set the tag for the image to a global variable
         id: set_tag
