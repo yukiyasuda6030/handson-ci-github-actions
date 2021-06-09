@@ -44,7 +44,7 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/githubtest:latest
             ${{ secrets.DOCKER_USERNAME }}/githubtest:v1
-            ${{ secrets.DOCKER_USERNAME }}/githubtest:${{ GITHUB_REF }}
+            ${{ secrets.DOCKER_USERNAME }}/githubtest:${{ github.GITHUB_REF }}
       - 
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
