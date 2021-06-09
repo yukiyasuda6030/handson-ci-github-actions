@@ -27,6 +27,7 @@ jobs:
         name: List files in the repository
         run: |   
           ls -al image/
+          echo "$GITHUB_REF"
       - 
         name: Login to DockerHub
         uses: docker/login-action@v1
@@ -43,6 +44,7 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/githubtest:latest
             ${{ secrets.DOCKER_USERNAME }}/githubtest:v1
+            ${{ secrets.DOCKER_USERNAME }}/githubtest:${{ GITHUB_REF }}
       - 
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
