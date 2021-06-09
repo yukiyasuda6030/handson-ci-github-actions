@@ -27,7 +27,7 @@ jobs:
         name: List files in the repository
         run: |   
           ls -al image/
-          cat ${{ github.GITHUB_REF }}
+          cat image/${{ github.GITHUB_REF }}
       - 
         name: Login to DockerHub
         uses: docker/login-action@v1
@@ -62,4 +62,3 @@ jobs:
           ls image/
           echo "--- argo_repo ---"
           ls argo_repo/
-          cat ${{ github.GITHUB_REF }}
