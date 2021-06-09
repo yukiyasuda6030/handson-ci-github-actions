@@ -32,7 +32,7 @@ jobs:
         name: Set the tag for the image to a global variable
         id: set_tag
         run: |
-          IMAGE_VESION=`cat image/version`
+          IMAGE_VERSION=`cat image/version`
           IMAGE_REFS=`cat image/.git/refs/heads/master`
           echo "::set-output name=IMAGE_VERSION::$IMAGE_VERSION"
           echo "::set-output name=IMAGE_REFS::$IMAGE_REFS"
