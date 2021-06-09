@@ -67,9 +67,25 @@ jobs:
           repository: tbuchi888/argocd_sample_repo
           path: argo_repo
       - 
-        name: List files in the repository
+        name: List files in the repository & sed TAG
         run: |
           echo "--- image ---"
           ls image/
           echo "--- argo_repo ---"
           ls argo_repo/
+          sed -e "s/TAG/${{ github.sha }}/" argo_repo/manifests/deployment.yaml > argo_repo/k8s/bl/yml
+          cat argo_repo/k8s/bl/yml
+      -
+        name: Commit files
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Add changes" -a
+      - 
+        name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: tbuchi888/argocd_sample_repo
+          directory: argo_repo
+          
