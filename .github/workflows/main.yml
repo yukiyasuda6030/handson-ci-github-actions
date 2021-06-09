@@ -34,7 +34,7 @@ jobs:
         run: |
           IMAGE_GIT_REFS=`cat image/.git/refs/heads/master`
           echo $IMAGE_GIT_REFS
-          echo "::set-output name=IMAGE_TAG=::$IMAGE_GIT_REFS"
+          echo "::set-output name=IMAGE_TAG=::${IMAGE_GIT_REFS}"
       - 
         name: Check a global variable
         run: |   
@@ -55,7 +55,7 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/githubtest:latest
             ${{ secrets.DOCKER_USERNAME }}/githubtest:v1
-            ${{ secrets.DOCKER_USERNAME }}/githubtest:`cat image/.git/refs/heads/master`
+            # ${{ secrets.DOCKER_USERNAME }}/githubtest:
       - 
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
