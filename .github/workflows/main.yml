@@ -31,7 +31,7 @@ jobs:
       - 
         name: Set the tag for the image to a global variable
         id: set_tag
-        run: echo '::set-output name=IMAGE_TAG=::$(cat image/.git/refs/heads/master)'
+        run: echo '::set-output name=IMAGE_TAG=::`cat image/.git/refs/heads/master`'
       - 
         name: Check a global variable
         run: |   
