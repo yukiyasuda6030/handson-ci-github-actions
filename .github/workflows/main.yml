@@ -27,6 +27,15 @@ jobs:
         name: List files in the repository
         run: |   
           ls -al image/
+          cat image/.git/refs/heads/master
+      - 
+        name: Set the tag for the image to a global variable
+        id: set_tag
+        run: echo '::set-output image_tag=::$(cat image/.git/refs/heads/master)'
+      - 
+        name: Check a global variable
+        run: |   
+          echo ${{ steps.set_tag.outputs.image_tag }}
       - 
         name: Login to DockerHub
         uses: docker/login-action@v1
