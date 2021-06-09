@@ -33,8 +33,7 @@ jobs:
         id: set_tag
         run: |
           IMAGE_GIT_REFS=`cat image/.git/refs/heads/master`
-          echo $IMAGE_GIT_REFS
-          echo "::set-output name=IMAGE_TAG=::${IMAGE_GIT_REFS}"
+          echo "::set-output name=IMAGE_TAG::$IMAGE_GIT_REFS"
       - 
         name: Check a global variable
         run: |   
