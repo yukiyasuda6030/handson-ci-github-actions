@@ -27,7 +27,6 @@ jobs:
         name: List files in the repository
         run: |   
           ls -al image/
-          cat image/${{ github.GITHUB_REF }}
       - 
         name: Login to DockerHub
         uses: docker/login-action@v1
