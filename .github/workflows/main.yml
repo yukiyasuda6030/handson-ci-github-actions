@@ -62,3 +62,4 @@ jobs:
           ls image/
           echo "--- argo_repo ---"
           ls argo_repo/
+          echo "$GITHUB_REF"
