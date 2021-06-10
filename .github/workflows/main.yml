@@ -75,8 +75,8 @@ jobs:
           echo "--- for deploy ---"
           ls deploy/
           echo "--- replace ---"
-          sed -e "s/IMAGE\:TAG/${{ secrets.DOCKER_USERNAME }}\/${{ secrets.DOCKER_REPONAME }}\:${{ github.sha }}/" deploy/manifests/deployment.yaml > argo_repo/k8s/bl.yml
-          cat argo_repo/k8s/bl.yml
+          sed -e "s/IMAGE\:TAG/${{ secrets.DOCKER_USERNAME }}\/${{ secrets.DOCKER_REPONAME }}\:${{ github.sha }}/" deploy/manifests/deployment.yml > deploy/k8s/bl.yml
+          cat deploy/k8s/bl.yml
       -
         name: Commit the changes and push to repo for deploy of ArgoCD
         env:
