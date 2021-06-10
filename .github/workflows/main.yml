@@ -78,13 +78,18 @@ jobs:
           cat argo_repo/k8s/bl.yml
       -
         name: Commit files
+        env:
+          GIT_USERNAME: tbuchi888
+          GIT_EMAIL: tbuchi888@users.noreply.github.com"
+          DEPLOY_URL: tbuchi888/argocd_sample_repo
         run: |
           cd argo_repo
-          git config --global user.email "tbuchi888@users.noreply.github.com"
-          git config --global user.name "tbuchi888"
+          git config --local user.name "${{ env.GIT_USERNAME }}"
+          git config --local user.email "${{ env.GIT_EMAIL }}"          
           git add .
           git commit -m "Add changes" -a
-          git push
+          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
+          git push --force --quiet "https://${{ env.GIT_USERNAME }}:${{ secrets.GITHUB_TOKEN }}@${{ env.DEPLOY_URL }}" master:master
 #      - 
 #        name: Push changes
 #        uses: ad-m/github-push-action@master
