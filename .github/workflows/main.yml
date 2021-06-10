@@ -89,7 +89,7 @@ jobs:
           git add .
           git commit -m "Add changes" -a
           git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
-          git push --force --quiet "https://${{ env.GIT_USERNAME }}:${{ secrets.GITHUB_TOKEN }}@${{ env.DEPLOY_URL }}" master:master
+          git push --force --quiet "https://${{ env.GIT_USERNAME }}:${{ secrets.GIT_PWD }}@${{ env.DEPLOY_URL }}" master:master
 #      - 
 #        name: Push changes
 #        uses: ad-m/github-push-action@master
