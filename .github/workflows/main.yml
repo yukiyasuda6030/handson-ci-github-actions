@@ -80,7 +80,7 @@ jobs:
         name: Commit files
         env:
           GIT_USERNAME: tbuchi888
-          GIT_EMAIL: tbuchi888@users.noreply.github.com"
+          GIT_EMAIL: tbuchi888@users.noreply.github.com
           DEPLOY_URL: github.com/tbuchi888/argocd_sample_repo
         run: |
           cd argo_repo
