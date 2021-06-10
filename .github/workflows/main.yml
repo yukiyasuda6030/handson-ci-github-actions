@@ -19,24 +19,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - 
-        name: Check out the repo
+        name: Check out the repo for image
         uses: actions/checkout@v2
         with:
           path: image
       - 
-        name: List files in the repository
+        name: (Option) List files in the repository
         run: |   
           ls -al image/
           cat image/.git/refs/heads/master
           echo ${{ github.sha }}
       - 
-        name: Set the tag for the image to a global variable
+        name: (Option) Set the tag for the image to a global variable
         id: set_tag
         run: |
           IMAGE_VERSION=`cat image/version`
           echo "::set-output name=IMAGE_VERSION::$IMAGE_VERSION"
       - 
-        name: Check a global variable
+        name: (Option) Check a global variable
         run: |   
           echo ${{ steps.set_tag.outputs.IMAGE_VERSION }}
       - 
@@ -61,29 +61,30 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
       - 
-        name: Checkout other repo
+        name: Checkout repo for deploy of ArgoCD
         uses: actions/checkout@v2
         with:
           repository: tbuchi888/argocd-sample-repo
-          path: argo_repo
+          path: deploy
           token: ${{ secrets.GITHUB_TOKEN }}
       - 
-        name: List files in the repository & sed TAG
+        name: Replace the manifest file with the image and tag
         run: |
-          echo "--- image ---"
+          echo "--- for image ---"
           ls image/
-          echo "--- argo_repo ---"
-          ls argo_repo/
-          sed -e "s/IMAGE\:TAG/${{ secrets.DOCKER_USERNAME }}\/${{ secrets.DOCKER_REPONAME }}\:${{ github.sha }}/" argo_repo/manifests/deployment.yaml > argo_repo/k8s/bl.yml
+          echo "--- for deploy ---"
+          ls deploy/
+          echo "--- replace ---"
+          sed -e "s/IMAGE\:TAG/${{ secrets.DOCKER_USERNAME }}\/${{ secrets.DOCKER_REPONAME }}\:${{ github.sha }}/" deploy/manifests/deployment.yaml > argo_repo/k8s/bl.yml
           cat argo_repo/k8s/bl.yml
       -
-        name: Commit files
+        name: Commit the changes and push to repo for deploy of ArgoCD
         env:
           GIT_USERNAME: tbuchi888
           GIT_EMAIL: tbuchi888@users.noreply.github.com
           DEPLOY_URL: github.com/tbuchi888/argocd-sample-repo
         run: |
-          cd argo_repo
+          cd deploy
           git config --local user.name "${{ env.GIT_USERNAME }}"
           git config --local user.email "${{ env.GIT_EMAIL }}"          
           git add .
