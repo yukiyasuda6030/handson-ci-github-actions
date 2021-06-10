@@ -74,7 +74,7 @@ jobs:
           ls image/
           echo "--- argo_repo ---"
           ls argo_repo/
-          sed -e "s/IMAGE\:TAG/${{ secrets.DOCKER_REPONAME }}\:${{ github.sha }}/" argo_repo/manifests/deployment.yaml > argo_repo/k8s/bl.yml
+          sed -e "s/IMAGE\:TAG/${{ secrets.DOCKER_USERNAME }}\/${{ secrets.DOCKER_REPONAME }}\:${{ github.sha }}/" argo_repo/manifests/deployment.yaml > argo_repo/k8s/bl.yml
           cat argo_repo/k8s/bl.yml
       -
         name: Commit files
