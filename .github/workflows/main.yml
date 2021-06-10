@@ -84,12 +84,13 @@ jobs:
           git config --local user.name "github_action"
           git add .
           git commit -m "Add changes" -a
-      - 
-        name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
+          git push
+#      - 
+#        name: Push changes
+#        uses: ad-m/github-push-action@master
+#        with:
 #          github_token: ${{ secrets.DEV_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: tbuchi888/argocd_sample_repo
-          directory: argo_repo
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          repository: tbuchi888/argocd_sample_repo
+#          directory: argo_repo
           
