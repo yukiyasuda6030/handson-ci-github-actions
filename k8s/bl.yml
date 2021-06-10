@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: app/v1
 kind: Deployment
 metadata:
   name: blue
@@ -25,7 +25,7 @@ spec:
         color: blue
     spec:
       containers:
-      - image: docker.io/takuyak/nginx-sample-bl:latest
+      - image: takuyak/nginx-sample-bl:TAG
         name: blue
         ports:
           - containerPort: 80
