@@ -59,14 +59,12 @@ jobs:
       - 
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-
       - 
         name: Checkout repo for deploy of ArgoCD
         uses: actions/checkout@v2
         with:
-          repository: tbuchi888/argocd-sample-repo
+          repository: ${{ secrets.GIT_USERNAME_DEPLOY }}/${{ secrets.GIT_REPONAME_DEPLOY }}
           path: deploy
-
       - 
         name: Replace the manifest file with the image and tag
         run: |
@@ -80,14 +78,13 @@ jobs:
       -
         name: Commit the changes and push to repo for deploy of ArgoCD
         env:
-          GIT_USERNAME: tbuchi888
-          GIT_EMAIL: tbuchi888@users.noreply.github.com
-          DEPLOY_URL: github.com/tbuchi888/argocd-sample-repo
+          GIT_EMAIL_DOMAIN: users.noreply.github.com
+          DEPLOY_URL_DOMAIN: github.com
         run: |
           cd deploy
-          git config --local user.name "${{ env.GIT_USERNAME }}"
-          git config --local user.email "${{ env.GIT_EMAIL }}"          
+          git config --local user.name "${{ secrets.GIT_USERNAME_DEPLOY }}"
+          git config --local user.email "${{ secrets.GIT_USERNAME_DEPLOY }}@${{ env.GIT_EMAIL_DOMAIN }}"          
           git add .
           git commit -m "Add changes" -a
           git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
-          git push --force --quiet "https://${{ env.GIT_USERNAME }}:${{ secrets.GIT_PWD }}@${{ env.DEPLOY_URL }}" master:master
+          git push --force --quiet "https://${{ secrets.GIT_USERNAME_DEPLOY }}:${{ secrets.GIT_PASSWORD_DEPLOY }}@${{ env.DEPLOY_URL_DOMAIN }}/${{ secrets.GIT_USERNAME_DEPLOY }}/${{ secrets.GIT_REPONAME_DEPLOY }}/" master:master
