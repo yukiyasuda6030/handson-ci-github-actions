@@ -7,7 +7,6 @@ metadata:
     app: nginxjs
     color: blue
 spec:
-  minReadySeconds: 30
   strategy:
     type: RollingUpdate
   replicas: 4
