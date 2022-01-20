@@ -13,5 +13,5 @@ spec:
   selector:
     name: app
     app: nginxjs
-    color: blue
+    color: green
   type: LoadBalancer
