@@ -24,7 +24,7 @@ spec:
         color: blue
     spec:
       containers:
-      - image: takuyak/nginx-sample-bl:TAG
+      - image: docker.io/takuyak/nginx-sample-bl:v1
         name: blue
         ports:
           - containerPort: 80
