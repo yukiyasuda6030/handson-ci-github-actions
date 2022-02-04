@@ -1,4 +1,0 @@
-kubeconfig: |
-  #PASTE YOUR kubeconfig
-registry_user: 
-registry_password: 
