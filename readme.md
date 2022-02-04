@@ -6,7 +6,7 @@ This is demo page of js on Nginx on Docker and k8s.
 + The manifest files for k8s Service and Deploymnet using the container image built from this repository.
 + CI is using Github Actions.
 + CD is GitOps with ArgoCD, which syncs with CI in this repository and uses a separate repository below.
-　　+ https://github.com/tbuchi888/argocd-sample-repo.git
+  + https://github.com/tbuchi888/argocd-sample-repo.git
 　
 ## docker build/push Commands for mac or linux
 ```
